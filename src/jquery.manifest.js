@@ -57,6 +57,9 @@
       // Called when an item is added to the list. Return 'false' to prevent
       // the item from being added.
       onAdd: null,
+      // Called when an item is pasted to the list. Return 'false' to prevent
+      // the item from being added.
+      onPaste: function() {return false; },
       // Called when an item is added or removed from the list.
       onChange: null,
       // Called when an item is highlighted via 'mouseover'.
@@ -361,6 +364,18 @@
         })
         .bind('keyup.manifest', function (key) {
           self._resizeInput();
+        })
+        .bind('paste.manifest', function (ev) {
+          // 1ms timeout to ensure that the input value is present
+          setTimeout(function(){
+            if($input.val()){
+              $.when(self._trigger("paste",[$input.val()])).then(function(result){
+                if(result === true) {
+                  self.add($input.val(), null, true, true);
+                }
+              });
+            }
+          },1);
         })
         .bind('blur.manifest', function () {
           // 1ms timeout ensures that whatever 'mousedown' event caused this
