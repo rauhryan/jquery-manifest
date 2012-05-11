@@ -296,6 +296,24 @@ Options
         $(selector).bind('manifestadd', function (event, data, $item) { … });
 
     ---------------------------------------------------------------------------
+*   **onPaste** (data) _function, false_
+
+    Called when an item is pasted to the list. Return _false_ to prevent the
+    item from being added.
+
+    _Default:_ false
+
+    _Parameters:_
+
+    *   **data** _string, object_ Item data.
+
+    _this:_ _jQuery object_ Text input (no need to wrap like _$(this)_).
+
+    _Bind:_ You can also bind to the _manifestpaste_ event:
+
+        $(selector).bind('manifestpaste', function (event, data, $item) { … });
+
+    ---------------------------------------------------------------------------
 *   **onChange** (type, data, $item) _function, null_
 
     Called when an item is added or removed from the list.
